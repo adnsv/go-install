@@ -20,5 +20,5 @@ func IsPosixSudo() (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	return strings.TrimSpace(string(stdout)) == "root"
+	return strings.TrimSpace(string(stdout)) == "root", nil
 }
