@@ -3,6 +3,7 @@ package dep
 import (
 	"errors"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -34,7 +35,9 @@ func insubdir(parent, child string) bool {
 	if parent == "" {
 		return false
 	}
+	log.Printf("finding out if %s has %s as subdir\n", parent, child)
 	rp, _ := filepath.Rel(parent, child)
+	log.Printf("relpath is %s\n", rp)
 	return !strings.HasPrefix(rp, "..")
 }
 
@@ -43,18 +46,29 @@ var ErrPromptCancelled = errors.New("Prompt cancelled")
 func (tp *TargetPrompt) Run() (string, error) {
 	prev := ""
 	if tp.Lookup && tp.MainExe != "" {
+		log.Printf("looking up %s\n", tp.MainExe)
 		lookup, err := exec.LookPath(tp.MainExe)
 		if err == nil {
+			log.Printf("resolved to: %s\n", lookup)
 			p := filepath.Dir(lookup)
+			log.Printf("subdir: %s\n", p)
 			avoids := []string{}
 			if tp.AvoidGoBin {
 				if s := os.Getenv("GOPATH"); s != "" {
 					avoids = append(avoids, os.ExpandEnv(s))
+				} else {
+					log.Printf("checking: %s\n", "${HOME}/go")
+					s := os.ExpandEnv("${HOME}/go")
+					log.Printf("expanded to: %s\n", s)
+					if fs.DirExists(s) {
+						avoids = append(avoids, s)
+					}
 				}
 				if s := os.Getenv("GOROOT"); s != "" {
 					avoids = append(avoids, os.ExpandEnv(s))
 				}
 			}
+			log.Printf("avoiding: %s\n", strings.Join(avoids, ", "))
 			avoid := false
 			for _, d := range avoids {
 				if insubdir(d, p) {
