@@ -159,6 +159,7 @@ func (tp *TargetPrompt) Run() (string, error) {
 		if err != nil {
 			return "", err
 		}
+		dir = os.ExpandEnv(dir)
 		vdir, err := filepath.Abs(dir)
 		if err != nil {
 			return "", err
