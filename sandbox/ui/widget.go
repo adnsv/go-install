@@ -66,8 +66,12 @@ func (p *Paragraph) Wrap(maxw int) {
 }
 
 func (p *Paragraph) Render(rc *RC, x, y int) {
-	for _, w := range p.Words {
-		rc.PutRunes(x, y, tcell.StyleDefault, w.Content)
-		x += w.ContentWidth + 1
+	for _, ln := range p.Lines {
+		cx := x
+		for _, w := range ln {
+			rc.PutRunes(cx, y, tcell.StyleDefault, w.Content)
+			cx += w.ContentWidth + 1
+		}
+		y++
 	}
 }
