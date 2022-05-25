@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"path/filepath"
 
-	"github.com/adnsv/go-utils/fs"
+	"github.com/adnsv/go-utils/filesystem"
 )
 
 var NotFound = errors.New("innosetup compiler (iscc) not found")
@@ -18,12 +18,12 @@ func Find() (exe string, err error) {
 	}
 
 	path := filepath.Join(os.Getenv("ProgramFiles(x86)"), "Inno Setup 6")
-	if fs.FileExists(filepath.Join(path, "ISCC.exe")) {
+	if filesystem.FileExists(filepath.Join(path, "ISCC.exe")) {
 		return filepath.Join(path, "ISCC"), nil
 	}
 
 	path = filepath.Join(os.Getenv("ProgramFiles"), "Inno Setup 6")
-	if fs.FileExists(filepath.Join(path, "ISCC.exe")) {
+	if filesystem.FileExists(filepath.Join(path, "ISCC.exe")) {
 		return filepath.Join(path, "ISCC"), nil
 	}
 

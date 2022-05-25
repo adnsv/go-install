@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/adnsv/go-utils/binpack"
-	"github.com/adnsv/go-utils/fs"
+	"github.com/adnsv/go-utils/filesystem"
 	"github.com/adnsv/slog"
 )
 
@@ -47,8 +47,8 @@ func Pack(binfile string, unpackfile string, sourcedir string, ff []*File) error
 			return err
 		}
 		slog.Printf("%s -> %s",
-			fs.ByteSizeStr(uint64(s.OriginalSize)),
-			fs.ByteSizeStr(uint64(len(s.Content))))
+			filesystem.ByteSizeStr(uint64(s.OriginalSize)),
+			filesystem.ByteSizeStr(uint64(len(s.Content))))
 		bins = append(bins, s)
 	}
 	out, err := os.OpenFile(binfile, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)

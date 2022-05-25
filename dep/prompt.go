@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/adnsv/go-utils/fs"
+	"github.com/adnsv/go-utils/filesystem"
 	"github.com/blang/semver/v4"
 	"github.com/manifoldco/promptui"
 )
@@ -52,7 +52,7 @@ func (tp *TargetPrompt) Run() (string, error) {
 					avoids = append(avoids, os.ExpandEnv(s))
 				} else {
 					s := os.ExpandEnv("${HOME}/go")
-					if fs.DirExists(s) {
+					if filesystem.DirExists(s) {
 						avoids = append(avoids, s)
 					}
 				}
@@ -93,7 +93,7 @@ func (tp *TargetPrompt) Run() (string, error) {
 	if tp.CheckVerArgs != nil {
 		for _, e := range entries {
 			e.exefound = false
-			if fs.FileExists(e.path, tp.MainExe) {
+			if filesystem.FileExists(e.path, tp.MainExe) {
 				e.exefound = true
 				out, err := exec.Command(filepath.Join(e.path, tp.MainExe), tp.CheckVerArgs...).Output()
 				if err != nil {
