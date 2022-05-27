@@ -9,8 +9,8 @@ import (
 	"strings"
 
 	"github.com/adnsv/go-utils/filesystem"
+	"github.com/adnsv/go-utils/prompt"
 	"github.com/blang/semver/v4"
-	"github.com/manifoldco/promptui"
 )
 
 type TargetPrompt struct {
@@ -93,7 +93,7 @@ func (tp *TargetPrompt) Run() (string, error) {
 	if tp.CheckVerArgs != nil {
 		for _, e := range entries {
 			e.exefound = false
-			if filesystem.FileExists(e.path, tp.MainExe) {
+			if filesystem.FileExists(filepath.Join(e.path, tp.MainExe)) {
 				e.exefound = true
 				out, err := exec.Command(filepath.Join(e.path, tp.MainExe), tp.CheckVerArgs...).Output()
 				if err != nil {
@@ -130,44 +130,21 @@ func (tp *TargetPrompt) Run() (string, error) {
 		}
 		choices = append(choices, "• "+s)
 	}
-	prompt := promptui.Select{
-		Label:    "where to? ↑↓",
-		Items:    choices,
-		HideHelp: true,
-	}
-	i, _, err := prompt.Run()
-	if err != nil {
-		return "", err
-	}
+
+	i := prompt.Choose("where to?", choices...) - 1
 	e := entries[i]
 	if e.id == -1 {
 		// cancel
 		return "", ErrPromptCancelled
 	} else if e.id == -2 {
 		// custom
-		dp := promptui.Prompt{
-			Label:       "install to",
-			HideEntered: true,
-			Validate: func(input string) error {
-				if input == "" {
-					return errors.New("empty string is not allowed")
-				}
-				return nil
-			},
-		}
-		dir, err := dp.Run()
-		if err != nil {
-			return "", err
-		}
-		dir = os.ExpandEnv(dir)
+		//cb := func(input string) error { return nil }
+		dir := prompt.TextTrimmed("install to:", prompt.NoEmptyString, filesystem.ValidateNoDirExists)
 		vdir, err := filepath.Abs(dir)
 		if err != nil {
 			return "", err
 		}
 		return filepath.FromSlash(vdir), err
-	} else if e.id == -1 {
-		// cancel
-		return "", ErrPromptCancelled
 	}
 	vdir, err := filepath.Abs(e.path)
 	return filepath.FromSlash(vdir), err
