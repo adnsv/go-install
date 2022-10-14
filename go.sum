@@ -1,9 +1,11 @@
-github.com/adnsv/go-utils v0.5.2 h1:9ugDf3UTQD8zVt2470bjiCPhwdTAoXRYJcUOVuEX7C0=
-github.com/adnsv/go-utils v0.5.2/go.mod h1:7eI7D4tJjDcshitHT29rcPZx1U9++OOuUSPw8da7QX4=
+github.com/adnsv/go-utils v0.7.0 h1:tlX0pBCWI2zH/1o/MulrRCz9LlyXZT6sZXg6YZrWx5Q=
+github.com/adnsv/go-utils v0.7.0/go.mod h1:TYfA/m6fXAvxMkOqbdqojDmGJ9FOx47ey3aar0Aqc9U=
 github.com/adnsv/slog v1.0.0-rc.7 h1:SGTQxeXMdAQP2+2KlpFMcwPsLSxY6yup1uVTQBkC4Sg=
 github.com/adnsv/slog v1.0.0-rc.7/go.mod h1:1qsyFRt14xH+rhdW9LK4Y7vV/P8KKDIwTCCNfKqJZYc=
 github.com/blang/semver/v4 v4.0.0 h1:1PFHFE6yCCTv8C1TeyNNarDzntLi7wMI5i/pzqYIsAM=
 github.com/blang/semver/v4 v4.0.0/go.mod h1:IbckMUScFkM3pff0VJDNKRiT6TG/YpiHIM2yvyW5YoQ=
 golang.org/x/sys v0.0.0-20210923061019-b8560ed6a9b7/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
-golang.org/x/sys v0.0.0-20220919091848-fb04ddd9f9c8 h1:h+EGohizhe9XlX18rfpa8k8RAc5XyaeamM+0VHRd4lc=
-golang.org/x/sys v0.0.0-20220919091848-fb04ddd9f9c8/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.0.0-20220928140112-f11e5e49a4ec h1:BkDtF2Ih9xZ7le9ndzTA7KJow28VbQW3odyk/8drmuI=
+golang.org/x/sys v0.0.0-20220928140112-f11e5e49a4ec/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.0.0-20221013171732-95e765b1cc43 h1:OK7RB6t2WQX54srQQYSXMW8dF5C6/8+oA/s5QBmmto4=
+golang.org/x/sys v0.0.0-20221013171732-95e765b1cc43/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
