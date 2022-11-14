@@ -128,7 +128,7 @@ func (tp *TargetPrompt) Run() (string, error) {
 				s += fmt.Sprintf(" [%s]", e.comment)
 			}
 		}
-		choices = append(choices, "• "+s)
+		choices = append(choices, s)
 	}
 
 	i := prompt.Choose("where to?", choices...) - 1
